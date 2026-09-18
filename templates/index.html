@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Martyr of the Day</title>
+
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+  </head>
+
+  <body>
+    <header class="site-header">
+      <div class="logo">
+        <span class="logo-mark">✦</span>
+        <span>Martyr of the Day</span>
+      </div>
+
+      <div class="header-tools">
+        <!-- Search -->
+        <div class="nav-search">
+          <form action="/search" method="GET">
+            <input
+              type="text"
+              name="q"
+              placeholder="Search for a martyr..."
+              autocomplete="off"
+            />
+
+            <button type="submit">🔍</button>
+          </form>
+        </div>
+
+        <!-- Language Selector -->
+        <div class="language-selector">
+          <select id="languageSelect">
+            <option value="en">English</option>
+
+            <option value="fa">فارسی</option>
+
+            <option value="ar">العربية</option>
+          </select>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <!-- Martyr Card -->
+      <section class="martyr-section">
+        <div class="martyr-card">
+          <!-- Image -->
+          <div class="martyr-image">
+            <div class="image-overlay"></div>
+
+            <div class="image-placeholder">
+              <span>Portrait</span>
+            </div>
+
+            <div class="image-caption">
+              <span>Today's remembrance</span>
+            </div>
+          </div>
+
+          <!-- Information -->
+          <div class="martyr-content">
+            <div class="top-row">
+              <span class="day-badge"> MARTYR OF THE DAY </span>
+
+              <span class="date"> September 18, 2026 </span>
+            </div>
+
+            <h2>Martyr's Name</h2>
+
+            <p class="subtitle">
+              A life remembered through courage, sacrifice and legacy.
+            </p>
+
+            <!-- Information -->
+            <div class="details">
+              <div class="detail">
+                <span class="detail-icon">⌖</span>
+
+                <div>
+                  <span class="detail-label"> BIRTHPLACE </span>
+
+                  <strong> Tehran, Iran </strong>
+                </div>
+              </div>
+
+              <div class="detail">
+                <span class="detail-icon">✦</span>
+
+                <div>
+                  <span class="detail-label"> CATEGORY </span>
+
+                  <strong> War Martyr </strong>
+                </div>
+              </div>
+            </div>
+
+            <!-- Story -->
+            <div class="story">
+              <span class="story-label"> HIS STORY </span>
+
+              <p>
+                This is where a short introduction to the martyr's life will
+                appear. It can describe their childhood, background, important
+                moments in their life and the circumstances surrounding their
+                death.
+              </p>
+            </div>
+
+            <a href="#" class="story-button">
+              Read Full Story
+              <span>→</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Bottom message -->
+      <section class="remember">
+        <span>✦</span>
+
+        <p>
+          Every life has a story.
+          <strong>Every story deserves to be remembered.</strong>
+        </p>
+
+        <span>✦</span>
+      </section>
+    </main>
+
+    <footer>
+      <p>© 2026 Martyr of the Day</p>
+    </footer>
+  </body>
+</html>
