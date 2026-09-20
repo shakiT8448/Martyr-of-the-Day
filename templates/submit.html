@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Submit a Martyr</title>
+
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+  </head>
+
+  <body>
+    <header class="submit-header">
+      <h1>Submit a Martyr</h1>
+      <a href="/">Return Home</a>
+    </header>
+
+    <main class="submit-container">
+      <h2>Martyr Information</h2>
+
+      <p>
+        Submit information about a martyr. Your submission will be reviewed by
+        the administrator.
+      </p>
+
+      <form action="/submit-martyr" method="POST">
+        <label for="name">Full Name *</label>
+        <input type="text" id="name" name="name" required />
+
+        <label for="birthplace">Birthplace</label>
+        <input type="text" id="birthplace" name="birthplace" />
+
+        <label for="category">Category</label>
+        <input
+          type="text"
+          id="category"
+          name="category"
+          placeholder="e.g. War Martyr"
+        />
+
+        <label for="birth_date">Birth Date</label>
+        <input
+          type="text"
+          id="birth_date"
+          name="birth_date"
+          placeholder="e.g. 1990"
+        />
+
+        <label for="death_date">Death Date</label>
+        <input
+          type="text"
+          id="death_date"
+          name="death_date"
+          placeholder="e.g. 2020"
+        />
+
+        <label for="short_biography">Short Biography</label>
+        <textarea
+          id="short_biography"
+          name="short_biography"
+          rows="4"
+        ></textarea>
+
+        <label for="biography">Full Biography</label>
+        <textarea id="biography" name="biography" rows="8"></textarea>
+
+        <label for="submitted_by">Your Name</label>
+        <input type="text" id="submitted_by" name="submitted_by" />
+
+        <button type="submit">Submit for Review</button>
+      </form>
+    </main>
+  </body>
+</html>
