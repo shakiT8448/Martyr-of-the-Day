@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Admin Dashboard</title>
+
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+  </head>
+
+  <body>
+    <div class="admin-dashboard">
+      <div class="admin-header">
+        <div>
+          <h1>Admin Dashboard</h1>
+          <p>Manage martyr submissions and records.</p>
+        </div>
+
+        <a href="/admin/logout"> Logout </a>
+      </div>
+
+      <!-- Pending submissions -->
+
+      <section class="admin-section">
+        <h2>Pending Submissions</h2>
+
+        {% if pending_martyrs %} {% for martyr in pending_martyrs %}
+
+        <div class="admin-martyr-card">
+          <div>
+            <h3>{{ martyr.name }}</h3>
+
+            <p>
+              <strong>Birthplace:</strong>
+              {{ martyr.birthplace }}
+            </p>
+
+            <p>
+              <strong>Category:</strong>
+              {{ martyr.category }}
+            </p>
+
+            <p>
+              <strong>Submitted by:</strong>
+              {{ martyr.submitted_by }}
+            </p>
+          </div>
+
+          <div class="admin-actions">
+            <a href="/admin/edit/{{ martyr.id }}"> Edit </a>
+
+            <form action="/admin/approve/{{ martyr.id }}" method="POST">
+              <button type="submit">Approve</button>
+            </form>
+
+            <form action="/admin/reject/{{ martyr.id }}" method="POST">
+              <button type="submit">Reject</button>
+            </form>
+          </div>
+        </div>
+
+        {% endfor %} {% else %}
+
+        <p>No pending submissions.</p>
+
+        {% endif %}
+      </section>
+
+      <!-- Approved martyrs -->
+
+      <section class="admin-section">
+        <h2>Approved Martyrs</h2>
+
+        {% if approved_martyrs %} {% for martyr in approved_martyrs %}
+
+        <div class="admin-martyr-card">
+          <div>
+            <h3>{{ martyr.name }}</h3>
+
+            <p>{{ martyr.birthplace }}</p>
+
+            <p>{{ martyr.category }}</p>
+          </div>
+
+          <div class="admin-actions">
+            <button>Edit</button>
+
+            <button>Delete</button>
+          </div>
+        </div>
+
+        {% endfor %} {% else %}
+
+        <p>No approved martyrs yet.</p>
+
+        {% endif %}
+      </section>
+    </div>
+  </body>
+</html>
