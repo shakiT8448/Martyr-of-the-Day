@@ -780,7 +780,13 @@ footer {
   background: #f4f1eb;
   border-radius: 15px;
 }
-
+.admin-martyr-image {
+  width: 180px;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin: 15px 0;
+}
 .admin-actions {
   display: flex;
   gap: 10px;

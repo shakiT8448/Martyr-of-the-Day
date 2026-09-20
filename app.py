@@ -1,13 +1,22 @@
-from flask import Flask, render_template, request, make_response, redirect, url_for, session
+from flask import (
+    Flask,
+    render_template,
+    request,
+    make_response,
+    redirect,
+    url_for,
+    session
+)
 from sqlalchemy.sql.expression import func
 from flask_sqlalchemy import SQLAlchemy
 from datetime import date
 import uuid
 from werkzeug.security import generate_password_hash, check_password_hash
+import os
+from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "change-this-to-a-random-secret-key"
-
 
 # -------------------------
 # Database configuration
@@ -15,9 +24,30 @@ app.config["SECRET_KEY"] = "change-this-to-a-random-secret-key"
 
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///martyrs.db"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-
 db = SQLAlchemy(app)
 
+
+# Image upload configuration
+
+app.config["UPLOAD_FOLDER"] = os.path.join(
+    app.root_path,
+    "static",
+    "uploads"
+)
+
+ALLOWED_EXTENSIONS = {
+    "png",
+    "jpg",
+    "jpeg",
+    "webp"
+}
+def allowed_file(filename):
+
+    return (
+        "." in filename
+        and filename.rsplit(".", 1)[1].lower()
+        in ALLOWED_EXTENSIONS
+    )
 
 # -------------------------
 # Martyr database model
@@ -265,31 +295,6 @@ def add_more_tests():
 
     return "More test martyrs added!"
 
-@app.route("/add-4th-test")
-def add_4th_test():
-
-    existing_martyr = Martyr.query.filter_by(
-        name="Test Martyr"
-    ).first()
-
-    if existing_martyr:
-        return "Test martyr already exists!"
-
-    test_martyr = Martyr(
-        name="Test Martyr",
-        birthplace="Tehran, Iran",
-        category="War Martyr",
-        birth_date="1990",
-        death_date="2020",
-        short_biography="This is a test martyr for our website. lorem epsumThis is a test martyr for our website. lorem epsumThis is a test martyr for our website. lorem epsumThis is a test martyr for our website. lorem epsumThis is a test martyr for our website. lorem epsum",
-        biography="This is a longer biography that we will replace with real information later.",
-        image="test.jpg",
-    )
-
-    db.session.add(test_martyr)
-    db.session.commit()
-
-    return "Test martyr added successfully!"
 # -------------------------
 # Home page
 # -------------------------
@@ -366,6 +371,31 @@ def submit_page():
 @app.route("/submit-martyr", methods=["POST"])
 def submit_martyr():
 
+    image_file = request.files.get("image")
+
+    image_filename = None
+
+    if image_file and image_file.filename:
+
+        if allowed_file(image_file.filename):
+
+            filename = secure_filename(
+                image_file.filename
+            )
+
+            image_filename = filename
+
+            image_path = os.path.join(
+                app.config["UPLOAD_FOLDER"],
+                filename
+            )
+
+            image_file.save(image_path)
+
+        else:
+
+            return "Invalid image format!"
+
     new_martyr = Martyr(
         name=request.form["name"],
         birthplace=request.form["birthplace"],
@@ -375,6 +405,7 @@ def submit_martyr():
         short_biography=request.form["short_biography"],
         biography=request.form["biography"],
         submitted_by=request.form["submitted_by"],
+        image=image_filename,
         status="pending"
     )
 
@@ -386,6 +417,7 @@ def submit_martyr():
         <p>Your submission has been sent for review.</p>
         <a href="/">Return to homepage</a>
     """
+
 # -------------------------
 # Start Flask
 # -------------------------
