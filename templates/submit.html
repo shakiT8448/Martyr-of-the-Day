@@ -26,9 +26,22 @@
         the administrator.
       </p>
 
-      <form action="/submit-martyr" method="POST">
+      <form
+    action="/submit-martyr"
+    method="POST"
+    enctype="multipart/form-data"
+>
         <label for="name">Full Name *</label>
         <input type="text" id="name" name="name" required />
+
+        <label for="image">Martyr's Image</label>
+
+<input
+    type="file"
+    id="image"
+    name="image"
+    accept="image/png, image/jpeg, image/webp"
+>
 
         <label for="birthplace">Birthplace</label>
         <input type="text" id="birthplace" name="birthplace" />

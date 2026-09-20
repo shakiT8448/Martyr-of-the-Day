@@ -35,6 +35,20 @@
           <div>
             <h3>{{ martyr.name }}</h3>
 
+            {% if martyr.image %}
+
+            <img
+              src="{{ url_for('static', filename='uploads/' + martyr.image) }}"
+              alt="{{ martyr.name }}"
+              class="admin-martyr-image"
+            />
+
+            {% else %}
+
+            <p>No image uploaded.</p>
+
+            {% endif %}
+
             <p>
               <strong>Birthplace:</strong>
               {{ martyr.birthplace }}
